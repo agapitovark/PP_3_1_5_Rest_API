@@ -31,9 +31,8 @@ public class AdminController {
         return "admin/new";
     }
 
-    @PostMapping("admin/newuser/")
+    @PostMapping("admin/newuser")
     public String saveUser(@ModelAttribute("user") User user) {
-
         userDetailServiceimp.saveUser(user);
         return "redirect:/admin";
     }

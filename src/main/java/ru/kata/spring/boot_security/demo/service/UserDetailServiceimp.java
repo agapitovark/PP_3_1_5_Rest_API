@@ -52,7 +52,7 @@ public class UserDetailServiceimp implements UserDetailsService {
 
     @Transactional
     public void saveUser(User user) {
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getUsername()));
         userRepo.saveAndFlush(user);
     }
 
