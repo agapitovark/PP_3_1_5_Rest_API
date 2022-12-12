@@ -10,7 +10,7 @@ import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.repositories.UserRepo;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 @Transactional(readOnly = true)
@@ -59,13 +59,14 @@ public class UserDetailServiceImp implements UserDetailService {
     }
 
     @Transactional
-    public void changeUser(int id, User user) {
-        Optional<User> userById = userRepo.findById(id);
-        User userFromRepo = userById.get();
-        userFromRepo.setId(id);
-        userFromRepo.setFirstName(user.getFirstName());
-        userFromRepo.setLastName(user.getLastName());
-        user.setPassword(user.getPassword());
-        userRepo.saveAndFlush(userFromRepo);
+    public void changeUser(int id, User userToUpdate) {
+        User userById = userRepo.findById(id).orElse(new User());
+        userById.setId(userToUpdate.getId());
+        userById.setFirstName(userToUpdate.getFirstName());
+        userById.setLastName(userToUpdate.getLastName());
+        userById.setUsername(userToUpdate.getUsername());
+        userById.setPassword(userToUpdate.getPassword());
+        userById.setRoles(userToUpdate.getRoles());
+        userRepo.save(userById);
     }
 }
