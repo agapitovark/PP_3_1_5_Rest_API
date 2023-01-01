@@ -5,7 +5,7 @@ const ageDeleteField = document.getElementById('delete-age');
 const loginDeleteField = document.getElementById('delete-username');
 
 async function deleteFormFill(id) {
-    const userByIdURL = '/api/users/' + id;
+    const userByIdURL = '/admin/users/' + id;
     let userResponse = await fetch(userByIdURL);
     if (userResponse.ok) {
         let userJSONData =
@@ -24,7 +24,7 @@ async function deleteFormFill(id) {
 }
 
 async function deleteUser() {
-    let url = '/api/delete-user/' + idDeleteField.value
+    let url = '/admin/delete-user/' + idDeleteField.value
 
     let method = {
         method: 'DELETE',

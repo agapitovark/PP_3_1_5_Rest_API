@@ -1,4 +1,4 @@
-const createUserURL = '/api/create-user/'
+const createUserURL = '/admin/create-user/'
 const createForm = document.getElementById('createForm');
 
 createForm.addEventListener('submit', (event) => {

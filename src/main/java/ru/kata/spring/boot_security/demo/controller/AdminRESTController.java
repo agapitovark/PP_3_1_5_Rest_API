@@ -4,15 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
+import java.security.Principal;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/admin")
 public class AdminRESTController {
     private final UserService userService;
     private final RoleService roleService;
@@ -21,6 +24,25 @@ public class AdminRESTController {
     public AdminRESTController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
+    }
+    @RequestMapping(value = "")
+    public ModelAndView getAdminPage(Principal principal, @ModelAttribute ("user") User user) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("admin/admin-page");
+        return modelAndView;
+    }
+
+    @RequestMapping("/admin-user")
+    public ModelAndView getAdminUserpage(Principal principal){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("admin/admin-user-page");
+        modelAndView.addObject("user",userService.getUserByUsername(principal.getName()));
+        return modelAndView;
+    }
+
+    @GetMapping("/current-user")
+    public ResponseEntity<List<User>> getCurrentUser(Principal principal){
+        return new ResponseEntity<>(Collections.singletonList(userService.getUserByUsername(principal.getName())), HttpStatus.OK);
     }
 
     @PostMapping(value = "/create-user")

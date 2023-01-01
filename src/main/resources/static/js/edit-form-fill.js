@@ -7,7 +7,7 @@ const loginField = document.getElementById('edit-username');
 const passwordField = document.getElementById('edit-password');
 
 async function editFormFill(id) {
-    const userByIdURL = '/api/users/' + id;
+    const userByIdURL = '/admin/users/' + id;
     let userResponse = await fetch(userByIdURL);
     if (userResponse.ok) {
         let userJSONData =
@@ -26,7 +26,7 @@ async function editFormFill(id) {
 }
 
 async function updateUser() {
-    const url = '/api/update-user/' + idField.value
+    const url = '/admin/update-user/' + idField.value
     let roles = [];
 
     for (let i = 0; i < editForm.selectRolesName.options.length; i++) {
@@ -61,7 +61,7 @@ async function updateUser() {
 }
 
 async function getRolesForEditForm() {
-    const getRolesURL = '/api/get-roles/'
+    const getRolesURL = '/admin/get-roles/'
     let rolesResponse = await fetch(getRolesURL);
 
     if (rolesResponse.ok) {

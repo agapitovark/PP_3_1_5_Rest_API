@@ -1,5 +1,5 @@
 const tbody = document.getElementById("tbody");
-const url = '/api/users';
+const url = '/admin/users';
 
 async function getAdminPage() {
     let response = await fetch(url);
@@ -10,12 +10,32 @@ async function getAdminPage() {
         alert(`HTTP Error, ${response.status}`)
     }
 }
-
-function fillPage(userData, tbody) {
-    $(tbody).empty();
-
+async function getCurrentUser() {
+    let response = await fetch('/admin/current-user');
+    if (response.ok) {
+        let usersJSONData =
+            await response.json().then(usersJSONData => fillLoggedUser(usersJSONData, document.getElementById("user_role")))
+    } else {
+        alert(`HTTP Error, ${response.status}`)
+    }
+}
+function fillLoggedUser(userData, logged){
+    $(logged).empty();
     userData.forEach(user => {
         let roleNames = [];
+
+        user.roles.forEach(role => roleNames.push(" " + role.name.toString()
+            .replaceAll('ROLE_', '')));
+
+        logged.innerHTML ='logged as: '+ user.username + ' with roles: ' + roleNames.toString();
+    })
+}
+function fillPage(userData, tbody) {
+    $(tbody).empty();
+    userData.forEach(user => {
+        let roleNames = [];
+
+
         user.roles.forEach(role => roleNames.push(" " + role.name.toString()
             .replaceAll('ROLE_', '')));
 
@@ -48,5 +68,5 @@ function fillPage(userData, tbody) {
 
     })
 }
-
+getCurrentUser();
 getAdminPage();

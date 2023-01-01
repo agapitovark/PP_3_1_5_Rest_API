@@ -192,10 +192,7 @@
         <div class="col-12 col-xl-12 mt-auto" style="width: auto;">
             <nav class="navbar navbar-light navbar-expand-md fixed-top navigation-clean-button" style="height: 50px;background-color: #37434d;color: #ffffff;width: auto;">
                 <div class="container-fluid">
-                    <span style="color: rgb(255, 255, 255);"
-                          th:text="${user.getUsername()} +
-                          ' with roles: ' +
-                          ${user.getRolesToString()}">
+                     <span style="color: rgb(255, 255, 255);" id = "user_role">
                     </span>
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item"><a class="nav-link" style="color:#ffffff;" href="/logout">Logout</a></li>
@@ -208,7 +205,7 @@
         <div class="col-2 visible" style="background: #ffffff;margin-top: 0px;height: 100%">
             <ul class="nav nav-tabs flex-column d-inline" style="height:100%;border-bottom-width: 0px;padding-top: 10px;background: #ffffff;margin-bottom: 0px;padding-bottom: 0px;">
                 <li class="nav-item" style="background: var(--bs-blue);"><a class="nav-link active" th:href="@{/admin}" style="background: var(--bs-blue);color: var(--bs-nav-tabs-link-active-bg);">Admin</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/admin-user}">User</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/admin/admin-user}">User</a></li>
             </ul>
         </div>
         <div class="col-9 flex-grow-1 align-self-baseline">
