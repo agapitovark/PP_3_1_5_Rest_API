@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
@@ -24,20 +23,6 @@ public class AdminRESTController {
     public AdminRESTController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
-    }
-    @RequestMapping(value = "")
-    public ModelAndView getAdminPage(Principal principal, @ModelAttribute ("user") User user) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("admin/admin-page");
-        return modelAndView;
-    }
-
-    @RequestMapping("/admin-user")
-    public ModelAndView getAdminUserpage(Principal principal){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("admin/admin-user-page");
-        modelAndView.addObject("user",userService.getUserByUsername(principal.getName()));
-        return modelAndView;
     }
 
     @GetMapping("/current-user")
